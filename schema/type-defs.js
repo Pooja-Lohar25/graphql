@@ -4,18 +4,26 @@ const {gql}  = require('apollo-server')
 
 //these define the type of queries that are to be made and the type of objects that can be queried
 const typeDefs = gql`
-#this is the definition of users....
-type Users {
-    id: ID! # ! means it can not be null
-    name: String!
-    username: String!
-    age: Int!
-    nationality: String!
-}
+    #this is the definition of users....
+    type User {
+        id: ID! # ! means it can not be null
+        name: String!
+        username: String!
+        age: Int!
+        nationality: String!
+        favMovId: [Int]
+        favmovies: [Movie]
+    }
 
-type Query {
-    users: [Users!]! #if 'users' query is  made it would return a list of users as per the definition 
-    
-}
+    type Query {
+        users: [User!]! #if 'users' query is  made it would return a list of users as per the definition 
+        user(id:ID!): User!
+    }
+
+    type Movie {
+        id: ID!
+        name: String!
+        genre: String!
+    }
 `
 module.exports = {typeDefs}

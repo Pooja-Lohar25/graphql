@@ -6,14 +6,34 @@
 }
 */
 const {userlist} = require('../fakedata.js')
-
-const resolvers = {  // this single obect would contain all the resolvers of the api
+const {movielist} = require('../fakedata.js')
+const lod  = require('lodash')
+const resolvers = {  // this single object would contain all the resolvers of the api
     Query:{//highest level field
-        users() {
+        users:()=>{
             return userlist
+        },
+        /**
+         *two resolvers cannot have same name--nothing like resolver overloading
+         */
+        user: (parent,args)=>{ //parameterised query
+            const id = args.id;
+            const user =lod.find(userlist,{id:Number(id)})
+            return user
         }
-    } 
         
+    } , 
+    /**handling parent
+     * when any query returns a User type of object it will initiate this resolver
+     * now for this the 'parent' becomes whatever is returned by the previous query
+     */
+    User: {
+        favmovies:(parent)=>{
+            return movielist.filter((movie)=>{
+                return parent.favMovId.includes(movie.id)
+            })
+        }
+    }
     
 }
 
