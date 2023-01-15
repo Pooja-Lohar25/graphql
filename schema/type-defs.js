@@ -30,10 +30,15 @@ const typeDefs = gql`
         username: String!
         age: Int!
         nationality: String = "Indian"
-        favMovId: [Int]
+        favMovId: [Int] = []
+    }
+    input updateUsernameIn {
+        id: ID!
+        newusername: String!
     }
     type Mutation {
         createUser(input: createUserIn): User!
+        updateUsername(input: updateUsernameIn): User!
     }
 `
 module.exports = {typeDefs}

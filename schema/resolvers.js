@@ -8,6 +8,7 @@
 const {userlist} = require('../fakedata.js')
 const {movielist} = require('../fakedata.js')
 const lod  = require('lodash')
+const { update } = require('lodash')
 const resolvers = {  // this single object would contain all the resolvers of the api
     Query:{//highest level field
         users:()=>{
@@ -41,8 +42,21 @@ const resolvers = {  // this single object would contain all the resolvers of th
             user.id = lastid +1
             userlist.push(user)
             return user
+        },
+        updateUsername: (parent,args)=>{
+            // const id = Number(args.input.id)
+            // const newusername = args.input.newusername
+            const {id,newusername} = args.input
+            let updatedUser
+            userlist.forEach((user)=>{
+                if(user.id===Number(id)){
+                    user.username = newusername
+                    updatedUser = user                       
+                }
+                
+            });
+            return updatedUser
             
-
         }
     }
 }
