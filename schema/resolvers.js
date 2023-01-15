@@ -33,8 +33,18 @@ const resolvers = {  // this single object would contain all the resolvers of th
                 return parent.favMovId.includes(movie.id)
             })
         }
+    },
+    Mutation:{
+        createUser: (parent,args)=>{
+            const user = args.input
+            const lastid =  userlist.length
+            user.id = lastid +1
+            userlist.push(user)
+            return user
+            
+
+        }
     }
-    
 }
 
 module.exports = {resolvers}

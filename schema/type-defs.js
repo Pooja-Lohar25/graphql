@@ -10,7 +10,7 @@ const typeDefs = gql`
         name: String!
         username: String!
         age: Int!
-        nationality: String!
+        nationality: String
         favMovId: [Int]
         favmovies: [Movie]
     }
@@ -24,6 +24,16 @@ const typeDefs = gql`
         id: ID!
         name: String!
         genre: String!
+    }
+    input createUserIn {
+        name: String!
+        username: String!
+        age: Int!
+        nationality: String = "Indian"
+        favMovId: [Int]
+    }
+    type Mutation {
+        createUser(input: createUserIn): User!
     }
 `
 module.exports = {typeDefs}
